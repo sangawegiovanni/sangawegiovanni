@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MNIST Predictor</title>
+</head>
+<body>
+    <input type="file" accept="image/*" id="image">
+    <button onclick="run()">Predict</button>
+    <h3 id="results"></h3>
+</body>
+<script>
+    async function run() {
+        let form = new FormData()
+        form.append("file", document.getElementById("image").files[0])
+        let res = await fetch("/predict", {method:"POST", body:form})
+        results.innerText = "Prediction: " + (await res.json()).prediction
+    }
+</script>
+</html>
